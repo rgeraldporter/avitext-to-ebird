@@ -1,7 +1,7 @@
 # avitext-to-ebird
 ####v1.0.0
 
-A web app for validating [avitext](https://github.com/rgeraldporter/avitext-spec) files and converting them into .csv files for eBird import.
+A web app for validating [Avitext](https://github.com/rgeraldporter/avitext-spec) files and converting them into .csv files for eBird import.
 
 ## Setup
 
@@ -9,7 +9,7 @@ Clone down, load `public/index.html` in a browser.
 
 ## About this app
 
-Written with [Svelte](https://svelte.technology/) UI Framework.
+Written with [Svelte](https://svelte.technology/) UI Framework. CSS from [Pure CSS](http://purecss.io/).
 
 ##License
 
