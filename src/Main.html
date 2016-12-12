@@ -1,0 +1,136 @@
+<h1 class="watermark header">Avitext-to-eBird</h1>
+<p class="watermark subheader">Converts <a href="https://github.com/rgeraldporter/avitext-spec" target="_blank">Avitext checklist</a> files into a CSV file for import into eBird.</p>
+
+<textarea
+    bind:value="avitext"
+    placeholder="Paste your Avitext checklist here"
+    rows="25"
+    onfocus="this.select();"
+    onmouseup="return false;"
+    class="pure-u-5-5 pure-input-rounded avitext">
+</textarea>
+
+<button 
+    on:click="add()"
+    class="pure-button pure-button-primary">Add to eBird CSV
+</button>
+
+<button 
+    on:click="reset()"
+    class="pure-button">Start new CSV
+</button>
+
+{{#if reports.length}}
+    <a
+        href="data:text/csv;charset=utf-8,{{csvString}}"
+        taget="_blank"
+        class="pure-button"
+        download="ebird-import.csv">
+        Download Full CSV ({{reports.length}} checklist{{reports.length === 1 ? '' : 's' }})
+    </a>
+{{else}}
+    <div class="pure-button pure-button-disabled">Download Full CSV</div>
+{{/if}}
+
+{{#each reports as report, index}}
+    <hr>
+    <table class="pure-table" sortable>
+        <caption>
+            Checklist on {{report.checklist.date.emit()}} at {{report.checklist.location.emit()}}
+            <a
+                href="#"
+                on:click="remove(index)">[x Remove]
+            </a>
+        </caption>
+        <thead>
+            <tr>
+                <th>Identifier</th><th>Common Name</th><th>Total Count</th><th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each report.checklist.species as taxon}}
+            <tr>
+                <td>{{taxon.identifier.emit()}}</td>
+                <td>{{taxon.commonName.emit()}}</td>
+                <td>{{calculateTotal(taxon.phenotype)}}</td>
+                <td>{{taxon.comment.emit()}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{/each}}
+
+<style>
+    .avitext {
+        font-family: monospace;
+    }
+    .watermark {
+        position: fixed;
+        opacity: 0.685;
+        z-index: 99;
+        text-align: right;
+    }
+    .header {
+        top: 0.125em;
+        right: 10px;
+    }
+    .subheader {
+        top: 2.675em;
+        right: 10px;
+        width: 13em;
+    }
+</style>
+
+<script>
+    // @todo re-add when support in Svelte is added
+    //import Parse from 'avitext-parser';
+
+    const initValues = {
+        avitext: '',
+        reports: [],
+        csvString: null
+    };
+
+    const generateCsvString = reports =>
+        reports.reduce((prev, current) => (prev + current.toCsv()), '');
+
+    export default {
+        data () {
+            return initValues;
+        },
+        methods: {
+            add () {
+                const avitext = this.get('avitext');
+                const reports = this.get('reports');
+                reports.push(new Parse(avitext));
+
+                this.set({
+                    reports,
+                    csvString: encodeURI(generateCsvString(reports))
+                });
+            },
+            remove (index) {
+                const reports = this.get('reports');
+                reports.splice(index, 1);
+
+                this.set({
+                    reports,
+                    csvString: encodeURI(generateCsvString(reports))
+                });
+            },
+            reset () {
+                this.set(initValues);
+            }
+        },
+        helpers: {
+            calculateTotal (val) {  
+                return val.male.total.toInt() +
+                    val.female.total.toInt() +
+                    val.juvenile.toInt() +
+                    val.immature.toInt() +
+                    val.adult.toInt() +
+                    val.unspecified.toInt();
+            }
+        }
+    }
+</script>

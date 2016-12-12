@@ -1,0 +1,15 @@
+{
+  "name": "avitext-to-ebird",
+  "version": "1.0.0",
+  "description": "Convert your Avitext files in .csv files for eBird import.",
+  "main": "index.js",
+  "author": "Rob Porter <rob@inpictures.ca>",
+  "license": "MIT",
+  "scripts": {
+    "build": "./node_modules/svelte-cli/bin.js compile --format iife ./src/Main.html > ./public/Main.js",
+    "open": "open ./public/index.html"
+  },
+  "dependencies": {
+    "svelte-cli": "^1.2.0"
+  }
+}
