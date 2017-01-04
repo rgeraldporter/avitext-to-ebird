@@ -11,7 +11,7 @@ var template = (function () {
     };
 
     const generateCsvString = reports =>
-        reports.reduce((prev, current) => (prev + current.toCsv()), '');
+        reports.reduce((prev, current) => (prev + '\n' + current.toCsv()), '');
 
     return {
         data () {
@@ -57,7 +57,7 @@ var template = (function () {
 let addedCss = false;
 function addCss () {
 	var style = document.createElement( 'style' );
-	style.textContent = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \n    .avitext[svelte-2758807509], [svelte-2758807509] .avitext {\n        font-family: monospace;\n    }\n    .watermark[svelte-2758807509], [svelte-2758807509] .watermark {\n        position: fixed;\n        opacity: 0.685;\n        z-index: 99;\n        text-align: right;\n    }\n    .header[svelte-2758807509], [svelte-2758807509] .header {\n        top: 0.125em;\n        right: 10px;\n    }\n    .subheader[svelte-2758807509], [svelte-2758807509] .subheader {\n        top: 2.675em;\n        right: 10px;\n        width: 13em;\n    }\n";
+	style.textContent = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \n    .avitext[svelte-847749836], [svelte-847749836] .avitext {\n        font-family: monospace;\n    }\n    .watermark[svelte-847749836], [svelte-847749836] .watermark {\n        position: fixed;\n        opacity: 0.685;\n        z-index: 99;\n        text-align: right;\n    }\n    .header[svelte-847749836], [svelte-847749836] .header {\n        top: 0.125em;\n        right: 10px;\n    }\n    .subheader[svelte-847749836], [svelte-847749836] .subheader {\n        top: 2.675em;\n        right: 10px;\n        width: 13em;\n    }\n";
 	document.head.appendChild( style );
 
 	addedCss = true;
@@ -65,7 +65,7 @@ function addCss () {
 
 function renderMainFragment ( root, component ) {
 	var h1 = document.createElement( 'h1' );
-	h1.setAttribute( 'svelte-2758807509', '' );
+	h1.setAttribute( 'svelte-847749836', '' );
 	h1.className = "watermark header";
 	
 	h1.appendChild( document.createTextNode( "Avitext-to-eBird" ) );
@@ -73,7 +73,7 @@ function renderMainFragment ( root, component ) {
 	var text1 = document.createTextNode( "\n" );
 	
 	var p = document.createElement( 'p' );
-	p.setAttribute( 'svelte-2758807509', '' );
+	p.setAttribute( 'svelte-847749836', '' );
 	p.className = "watermark subheader";
 	
 	p.appendChild( document.createTextNode( "Converts " ) );
@@ -91,7 +91,7 @@ function renderMainFragment ( root, component ) {
 	var text5 = document.createTextNode( "\n\n" );
 	
 	var textarea = document.createElement( 'textarea' );
-	textarea.setAttribute( 'svelte-2758807509', '' );
+	textarea.setAttribute( 'svelte-847749836', '' );
 	var textarea_updating = false;
 	
 	function textareaChangeHandler () {
@@ -111,7 +111,7 @@ function renderMainFragment ( root, component ) {
 	var text6 = document.createTextNode( "\n\n" );
 	
 	var button = document.createElement( 'button' );
-	button.setAttribute( 'svelte-2758807509', '' );
+	button.setAttribute( 'svelte-847749836', '' );
 	function clickHandler ( event ) {
 		component.add();
 	}
@@ -124,7 +124,7 @@ function renderMainFragment ( root, component ) {
 	var text8 = document.createTextNode( "\n\n" );
 	
 	var button1 = document.createElement( 'button' );
-	button1.setAttribute( 'svelte-2758807509', '' );
+	button1.setAttribute( 'svelte-847749836', '' );
 	function clickHandler1 ( event ) {
 		component.reset();
 	}
@@ -271,12 +271,12 @@ function renderMainFragment ( root, component ) {
 
 function renderEachBlock ( root, eachBlock_value, report, index, component ) {
 	var hr = document.createElement( 'hr' );
-	hr.setAttribute( 'svelte-2758807509', '' );
+	hr.setAttribute( 'svelte-847749836', '' );
 	
 	var text = document.createTextNode( "\n    " );
 	
 	var table = document.createElement( 'table' );
-	table.setAttribute( 'svelte-2758807509', '' );
+	table.setAttribute( 'svelte-847749836', '' );
 	table.className = "pure-table";
 	table.setAttribute( 'sortable', true );
 	
@@ -507,7 +507,7 @@ function renderEachBlock1 ( root, eachBlock_value, report, index, eachBlock1_val
 
 function renderIfBlock_1 ( root, component ) {
 	var div = document.createElement( 'div' );
-	div.setAttribute( 'svelte-2758807509', '' );
+	div.setAttribute( 'svelte-847749836', '' );
 	div.className = "pure-button pure-button-disabled";
 	
 	div.appendChild( document.createTextNode( "Download Full CSV" ) );
@@ -531,7 +531,7 @@ function renderIfBlock_1 ( root, component ) {
 
 function renderIfBlock_0 ( root, component ) {
 	var a = document.createElement( 'a' );
-	a.setAttribute( 'svelte-2758807509', '' );
+	a.setAttribute( 'svelte-847749836', '' );
 	a.href = "data:text/csv;charset=utf-8," + ( root.csvString );
 	a.setAttribute( 'taget', "_blank" );
 	a.className = "pure-button";

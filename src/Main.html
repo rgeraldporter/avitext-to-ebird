@@ -92,7 +92,7 @@
     };
 
     const generateCsvString = reports =>
-        reports.reduce((prev, current) => (prev + current.toCsv()), '');
+        reports.reduce((prev, current) => (prev + '\n' + current.toCsv()), '');
 
     export default {
         data () {
