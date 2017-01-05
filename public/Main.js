@@ -22,11 +22,13 @@ var template = (function () {
                 const avitext = this.get('avitext');
                 const reports = this.get('reports');
                 reports.push(new Parse(avitext));
+                console.log('new parse', new Parse(avitext));
 
                 this.set({
                     reports,
                     csvString: encodeURI(generateCsvString(reports))
                 });
+                this.set({avitext: ''});
             },
             remove (index) {
                 const reports = this.get('reports');
@@ -56,42 +58,40 @@ var template = (function () {
 
 let addedCss = false;
 function addCss () {
-	var style = document.createElement( 'style' );
-	style.textContent = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \n    .avitext[svelte-847749836], [svelte-847749836] .avitext {\n        font-family: monospace;\n    }\n    .watermark[svelte-847749836], [svelte-847749836] .watermark {\n        position: fixed;\n        opacity: 0.685;\n        z-index: 99;\n        text-align: right;\n    }\n    .header[svelte-847749836], [svelte-847749836] .header {\n        top: 0.125em;\n        right: 10px;\n    }\n    .subheader[svelte-847749836], [svelte-847749836] .subheader {\n        top: 2.675em;\n        right: 10px;\n        width: 13em;\n    }\n";
-	document.head.appendChild( style );
+	var style = createElement( 'style' );
+	style.textContent = "\n    .avitext[svelte-2360266922], [svelte-2360266922] .avitext {\n        font-family: monospace;\n    }\n    .watermark[svelte-2360266922], [svelte-2360266922] .watermark {\n        position: fixed;\n        opacity: 0.685;\n        z-index: 99;\n        text-align: right;\n    }\n    .header[svelte-2360266922], [svelte-2360266922] .header {\n        top: 0.125em;\n        right: 10px;\n    }\n    .subheader[svelte-2360266922], [svelte-2360266922] .subheader {\n        top: 2.675em;\n        right: 10px;\n        width: 13em;\n    }\n";
+	appendNode( style, document.head );
 
 	addedCss = true;
 }
 
 function renderMainFragment ( root, component ) {
-	var h1 = document.createElement( 'h1' );
-	h1.setAttribute( 'svelte-847749836', '' );
+	var h1 = createElement( 'h1' );
+	setAttribute( h1, 'svelte-2360266922', '' );
 	h1.className = "watermark header";
 	
-	h1.appendChild( document.createTextNode( "Avitext-to-eBird" ) );
+	appendNode( createText( "Avitext-to-eBird" ), h1 );
+	var text1 = createText( "\n" );
 	
-	var text1 = document.createTextNode( "\n" );
-	
-	var p = document.createElement( 'p' );
-	p.setAttribute( 'svelte-847749836', '' );
+	var p = createElement( 'p' );
+	setAttribute( p, 'svelte-2360266922', '' );
 	p.className = "watermark subheader";
 	
-	p.appendChild( document.createTextNode( "Converts " ) );
+	appendNode( createText( "Converts " ), p );
 	
-	var a = document.createElement( 'a' );
+	var a = createElement( 'a' );
+	setAttribute( a, 'svelte-2360266922', '' );
 	a.href = "https://github.com/rgeraldporter/avitext-spec";
 	a.target = "_blank";
 	
-	p.appendChild( a );
+	appendNode( a, p );
+	appendNode( createText( "Avitext checklist" ), a );
+	appendNode( createText( " files into a CSV file for import into eBird." ), p );
+	var text5 = createText( "\n\n" );
 	
-	a.appendChild( document.createTextNode( "Avitext checklist" ) );
+	var textarea = createElement( 'textarea' );
+	setAttribute( textarea, 'svelte-2360266922', '' );
 	
-	p.appendChild( document.createTextNode( " files into a CSV file for import into eBird." ) );
-	
-	var text5 = document.createTextNode( "\n\n" );
-	
-	var textarea = document.createElement( 'textarea' );
-	textarea.setAttribute( 'svelte-847749836', '' );
 	var textarea_updating = false;
 	
 	function textareaChangeHandler () {
@@ -100,43 +100,44 @@ function renderMainFragment ( root, component ) {
 		textarea_updating = false;
 	}
 	
-	textarea.addEventListener( 'change', textareaChangeHandler, false );
+	addEventListener( textarea, 'change', textareaChangeHandler );
 	textarea.value = root.avitext;
+	
 	textarea.placeholder = "Paste your Avitext checklist here";
 	textarea.rows = "25";
-	textarea.setAttribute( 'onfocus', "this.select();" );
-	textarea.setAttribute( 'onmouseup', "return false;" );
+	setAttribute( textarea, 'onmouseup', "return false;" );
 	textarea.className = "pure-u-5-5 pure-input-rounded avitext";
 	
-	var text6 = document.createTextNode( "\n\n" );
+	var text6 = createText( "\n\n" );
 	
-	var button = document.createElement( 'button' );
-	button.setAttribute( 'svelte-847749836', '' );
+	var button = createElement( 'button' );
+	setAttribute( button, 'svelte-2360266922', '' );
+	
 	function clickHandler ( event ) {
 		component.add();
 	}
 	
-	button.addEventListener( 'click', clickHandler, false );
+	addEventListener( button, 'click', clickHandler );
+	
 	button.className = "pure-button pure-button-primary";
 	
-	button.appendChild( document.createTextNode( "Add to eBird CSV" ) );
+	appendNode( createText( "Add to eBird CSV" ), button );
+	var text8 = createText( "\n\n" );
 	
-	var text8 = document.createTextNode( "\n\n" );
+	var button1 = createElement( 'button' );
+	setAttribute( button1, 'svelte-2360266922', '' );
 	
-	var button1 = document.createElement( 'button' );
-	button1.setAttribute( 'svelte-847749836', '' );
 	function clickHandler1 ( event ) {
 		component.reset();
 	}
 	
-	button1.addEventListener( 'click', clickHandler1, false );
+	addEventListener( button1, 'click', clickHandler1 );
+	
 	button1.className = "pure-button";
 	
-	button1.appendChild( document.createTextNode( "Start new CSV" ) );
-	
-	var text10 = document.createTextNode( "\n\n" );
-	
-	var ifBlock_anchor = document.createComment( "#if reports.length" );
+	appendNode( createText( "Start new CSV" ), button1 );
+	var text10 = createText( "\n\n" );
+	var ifBlock_anchor = createComment( "#if reports.length" );
 	
 	function getBlock ( root ) {
 		if ( root.reports.length ) return renderIfBlock_0;
@@ -146,54 +147,37 @@ function renderMainFragment ( root, component ) {
 	var currentBlock = getBlock( root );
 	var ifBlock = currentBlock && currentBlock( root, component );
 	
-	var text11 = document.createTextNode( "\n\n" );
-	
-	var eachBlock_anchor = document.createComment( "#each reports" );
-	
+	var text11 = createText( "\n\n" );
+	var eachBlock_anchor = createComment( "#each reports" );
 	var eachBlock_value = root.reports;
 	var eachBlock_iterations = [];
 	
-	
 	for ( var i = 0; i < eachBlock_value.length; i += 1 ) {
 		eachBlock_iterations[i] = renderEachBlock( root, eachBlock_value, eachBlock_value[i], i, component );
-		
 	}
 
 	return {
 		mount: function ( target, anchor ) {
-			target.insertBefore( h1, anchor );
-			
-			target.insertBefore( text1, anchor );
-			
-			target.insertBefore( p, anchor );
-			
-			target.insertBefore( text5, anchor );
-			
-			target.insertBefore( textarea, anchor );
-			
-			target.insertBefore( text6, anchor );
-			
-			target.insertBefore( button, anchor );
-			
-			target.insertBefore( text8, anchor );
-			
-			target.insertBefore( button1, anchor );
-			
-			target.insertBefore( text10, anchor );
-			
-			target.insertBefore( ifBlock_anchor, anchor );
-			
+			insertNode( h1, target, anchor );
+			insertNode( text1, target, anchor );
+			insertNode( p, target, anchor );
+			insertNode( text5, target, anchor );
+			insertNode( textarea, target, anchor );
+			insertNode( text6, target, anchor );
+			insertNode( button, target, anchor );
+			insertNode( text8, target, anchor );
+			insertNode( button1, target, anchor );
+			insertNode( text10, target, anchor );
+			insertNode( ifBlock_anchor, target, anchor );
 			if ( ifBlock ) ifBlock.mount( ifBlock_anchor.parentNode, ifBlock_anchor );
-			
-			target.insertBefore( text11, anchor );
-			
-			target.insertBefore( eachBlock_anchor, anchor );
+			insertNode( text11, target, anchor );
+			insertNode( eachBlock_anchor, target, anchor );
 			
 			for ( var i = 0; i < eachBlock_iterations.length; i += 1 ) {
 				eachBlock_iterations[i].mount( eachBlock_anchor.parentNode, eachBlock_anchor );
 			}
 		},
-
+		
 		update: function ( changed, root ) {
 			if ( !textarea_updating ) textarea.value = root.avitext;
 			
@@ -224,14 +208,11 @@ function renderMainFragment ( root, component ) {
 			
 			eachBlock_iterations.length = eachBlock_value.length;
 		},
-
+		
 		teardown: function ( detach ) {
-			textarea.removeEventListener( 'change', textareaChangeHandler, false );
-			
-			button.removeEventListener( 'click', clickHandler, false );
-			
-			button1.removeEventListener( 'click', clickHandler1, false );
-			
+			removeEventListener( textarea, 'change', textareaChangeHandler );
+			removeEventListener( button, 'click', clickHandler );
+			removeEventListener( button1, 'click', clickHandler1 );
 			if ( ifBlock ) ifBlock.teardown( detach );
 			
 			for ( var i = 0; i < eachBlock_iterations.length; i += 1 ) {
@@ -239,130 +220,111 @@ function renderMainFragment ( root, component ) {
 			}
 			
 			if ( detach ) {
-				h1.parentNode.removeChild( h1 );
-				
-				text1.parentNode.removeChild( text1 );
-				
-				p.parentNode.removeChild( p );
-				
-				text5.parentNode.removeChild( text5 );
-				
-				textarea.parentNode.removeChild( textarea );
-				
-				text6.parentNode.removeChild( text6 );
-				
-				button.parentNode.removeChild( button );
-				
-				text8.parentNode.removeChild( text8 );
-				
-				button1.parentNode.removeChild( button1 );
-				
-				text10.parentNode.removeChild( text10 );
-				
-				ifBlock_anchor.parentNode.removeChild( ifBlock_anchor );
-				
-				text11.parentNode.removeChild( text11 );
-				
-				eachBlock_anchor.parentNode.removeChild( eachBlock_anchor );
+				detachNode( h1 );
+				detachNode( text1 );
+				detachNode( p );
+				detachNode( text5 );
+				detachNode( textarea );
+				detachNode( text6 );
+				detachNode( button );
+				detachNode( text8 );
+				detachNode( button1 );
+				detachNode( text10 );
+				detachNode( ifBlock_anchor );
+				detachNode( text11 );
+				detachNode( eachBlock_anchor );
 			}
-		}
+		},
 	};
 }
 
 function renderEachBlock ( root, eachBlock_value, report, index, component ) {
-	var hr = document.createElement( 'hr' );
-	hr.setAttribute( 'svelte-847749836', '' );
+	var hr = createElement( 'hr' );
+	setAttribute( hr, 'svelte-2360266922', '' );
 	
-	var text = document.createTextNode( "\n    " );
+	var text = createText( "\n    " );
 	
-	var table = document.createElement( 'table' );
-	table.setAttribute( 'svelte-847749836', '' );
+	var table = createElement( 'table' );
+	setAttribute( table, 'svelte-2360266922', '' );
 	table.className = "pure-table";
-	table.setAttribute( 'sortable', true );
+	setAttribute( table, 'sortable', true );
 	
-	var caption = document.createElement( 'caption' );
+	var caption = createElement( 'caption' );
+	setAttribute( caption, 'svelte-2360266922', '' );
 	
-	table.appendChild( caption );
+	appendNode( caption, table );
+	appendNode( createText( "Checklist on " ), caption );
+	var text2 = createText( report.checklist.date.emit() );
+	appendNode( text2, caption );
+	appendNode( createText( " at " ), caption );
+	var text4 = createText( report.checklist.location.emit() );
+	appendNode( text4, caption );
+	appendNode( createText( "\n            " ), caption );
 	
-	caption.appendChild( document.createTextNode( "Checklist on " ) );
-	
-	var text2 = document.createTextNode( report.checklist.date.emit() );
-	
-	caption.appendChild( text2 );
-	
-	caption.appendChild( document.createTextNode( " at " ) );
-	
-	var text4 = document.createTextNode( report.checklist.location.emit() );
-	
-	caption.appendChild( text4 );
-	
-	caption.appendChild( document.createTextNode( "\n            " ) );
-	
-	var a = document.createElement( 'a' );
+	var a = createElement( 'a' );
+	setAttribute( a, 'svelte-2360266922', '' );
 	a.href = "#";
+	
 	function clickHandler ( event ) {
 		var eachBlock_value = this.__svelte.eachBlock_value, index = this.__svelte.index, report = eachBlock_value[index]
 		
 		component.remove(index);
 	}
 	
-	a.addEventListener( 'click', clickHandler, false );
+	addEventListener( a, 'click', clickHandler );
+	
 	a.__svelte = {
 		eachBlock_value: eachBlock_value,
 		index: index
 	};
 	
-	caption.appendChild( a );
+	appendNode( a, caption );
+	appendNode( createText( "[x Remove]" ), a );
+	appendNode( createText( "\n        " ), table );
 	
-	a.appendChild( document.createTextNode( "[x Remove]" ) );
+	var thead = createElement( 'thead' );
+	setAttribute( thead, 'svelte-2360266922', '' );
 	
-	table.appendChild( document.createTextNode( "\n        " ) );
+	appendNode( thead, table );
 	
-	var thead = document.createElement( 'thead' );
+	var tr = createElement( 'tr' );
+	setAttribute( tr, 'svelte-2360266922', '' );
 	
-	table.appendChild( thead );
+	appendNode( tr, thead );
 	
-	var tr = document.createElement( 'tr' );
+	var th = createElement( 'th' );
+	setAttribute( th, 'svelte-2360266922', '' );
 	
-	thead.appendChild( tr );
+	appendNode( th, tr );
+	appendNode( createText( "Identifier" ), th );
 	
-	var th = document.createElement( 'th' );
+	var th1 = createElement( 'th' );
+	setAttribute( th1, 'svelte-2360266922', '' );
 	
-	tr.appendChild( th );
+	appendNode( th1, tr );
+	appendNode( createText( "Common Name" ), th1 );
 	
-	th.appendChild( document.createTextNode( "Identifier" ) );
+	var th2 = createElement( 'th' );
+	setAttribute( th2, 'svelte-2360266922', '' );
 	
-	var th1 = document.createElement( 'th' );
+	appendNode( th2, tr );
+	appendNode( createText( "Total Count" ), th2 );
 	
-	tr.appendChild( th1 );
+	var th3 = createElement( 'th' );
+	setAttribute( th3, 'svelte-2360266922', '' );
 	
-	th1.appendChild( document.createTextNode( "Common Name" ) );
+	appendNode( th3, tr );
+	appendNode( createText( "Comments" ), th3 );
+	appendNode( createText( "\n        " ), table );
 	
-	var th2 = document.createElement( 'th' );
+	var tbody = createElement( 'tbody' );
+	setAttribute( tbody, 'svelte-2360266922', '' );
 	
-	tr.appendChild( th2 );
-	
-	th2.appendChild( document.createTextNode( "Total Count" ) );
-	
-	var th3 = document.createElement( 'th' );
-	
-	tr.appendChild( th3 );
-	
-	th3.appendChild( document.createTextNode( "Comments" ) );
-	
-	table.appendChild( document.createTextNode( "\n        " ) );
-	
-	var tbody = document.createElement( 'tbody' );
-	
-	table.appendChild( tbody );
-	
-	var eachBlock1_anchor = document.createComment( "#each report.checklist.species" );
-	
-	tbody.appendChild( eachBlock1_anchor );
-	
+	appendNode( tbody, table );
+	var eachBlock1_anchor = createComment( "#each report.checklist.species" );
+	appendNode( eachBlock1_anchor, tbody );
 	var eachBlock1_value = report.checklist.species;
 	var eachBlock1_iterations = [];
-	
 	
 	for ( var i = 0; i < eachBlock1_value.length; i += 1 ) {
 		eachBlock1_iterations[i] = renderEachBlock1( root, eachBlock_value, report, index, eachBlock1_value, eachBlock1_value[i], i, component );
@@ -371,13 +333,11 @@ function renderEachBlock ( root, eachBlock_value, report, index, component ) {
 
 	return {
 		mount: function ( target, anchor ) {
-			target.insertBefore( hr, anchor );
-			
-			target.insertBefore( text, anchor );
-			
-			target.insertBefore( table, anchor );
+			insertNode( hr, target, anchor );
+			insertNode( text, target, anchor );
+			insertNode( table, target, anchor );
 		},
-
+		
 		update: function ( changed, root, eachBlock_value, report, index ) {
 			var report = eachBlock_value[index];
 			
@@ -405,85 +365,63 @@ function renderEachBlock ( root, eachBlock_value, report, index, component ) {
 			
 			eachBlock1_iterations.length = eachBlock1_value.length;
 		},
-
+		
 		teardown: function ( detach ) {
-			a.removeEventListener( 'click', clickHandler, false );
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			removeEventListener( a, 'click', clickHandler );
 			
 			for ( var i = 0; i < eachBlock1_iterations.length; i += 1 ) {
 				eachBlock1_iterations[i].teardown( false );
 			}
 			
 			if ( detach ) {
-				hr.parentNode.removeChild( hr );
-				
-				text.parentNode.removeChild( text );
-				
-				table.parentNode.removeChild( table );
+				detachNode( hr );
+				detachNode( text );
+				detachNode( table );
 			}
-		}
+		},
 	};
 }
 
 function renderEachBlock1 ( root, eachBlock_value, report, index, eachBlock1_value, taxon, taxon__index, component ) {
-	var tr = document.createElement( 'tr' );
+	var tr = createElement( 'tr' );
+	setAttribute( tr, 'svelte-2360266922', '' );
 	
-	var td = document.createElement( 'td' );
+	var td = createElement( 'td' );
+	setAttribute( td, 'svelte-2360266922', '' );
 	
-	tr.appendChild( td );
+	appendNode( td, tr );
+	var text = createText( taxon.identifier.emit() );
+	appendNode( text, td );
+	appendNode( createText( "\n                " ), tr );
 	
-	var text = document.createTextNode( taxon.identifier.emit() );
+	var td1 = createElement( 'td' );
+	setAttribute( td1, 'svelte-2360266922', '' );
 	
-	td.appendChild( text );
+	appendNode( td1, tr );
+	var text2 = createText( taxon.commonName.emit() );
+	appendNode( text2, td1 );
+	appendNode( createText( "\n                " ), tr );
 	
-	tr.appendChild( document.createTextNode( "\n                " ) );
+	var td2 = createElement( 'td' );
+	setAttribute( td2, 'svelte-2360266922', '' );
 	
-	var td1 = document.createElement( 'td' );
+	appendNode( td2, tr );
+	var text4 = createText( template.helpers.calculateTotal(taxon.phenotype) );
+	appendNode( text4, td2 );
+	appendNode( createText( "\n                " ), tr );
 	
-	tr.appendChild( td1 );
+	var td3 = createElement( 'td' );
+	setAttribute( td3, 'svelte-2360266922', '' );
 	
-	var text2 = document.createTextNode( taxon.commonName.emit() );
-	
-	td1.appendChild( text2 );
-	
-	tr.appendChild( document.createTextNode( "\n                " ) );
-	
-	var td2 = document.createElement( 'td' );
-	
-	tr.appendChild( td2 );
-	
-	var text4 = document.createTextNode( template.helpers.calculateTotal(taxon.phenotype) );
-	
-	td2.appendChild( text4 );
-	
-	tr.appendChild( document.createTextNode( "\n                " ) );
-	
-	var td3 = document.createElement( 'td' );
-	
-	tr.appendChild( td3 );
-	
-	var text6 = document.createTextNode( taxon.comment.emit() );
-	
-	td3.appendChild( text6 );
+	appendNode( td3, tr );
+	var text6 = createText( taxon.comment.emit() );
+	appendNode( text6, td3 );
 
 	return {
 		mount: function ( target, anchor ) {
-			target.insertBefore( tr, anchor );
+			insertNode( tr, target, anchor );
 		},
-
+		
 		update: function ( changed, root, eachBlock_value, report, index, eachBlock1_value, taxon, taxon__index ) {
 			var report = eachBlock_value[index];
 			var taxon = eachBlock1_value[taxon__index];
@@ -496,66 +434,58 @@ function renderEachBlock1 ( root, eachBlock_value, report, index, eachBlock1_val
 			
 			text6.data = taxon.comment.emit();
 		},
-
+		
 		teardown: function ( detach ) {
 			if ( detach ) {
-				tr.parentNode.removeChild( tr );
+				detachNode( tr );
 			}
-		}
+		},
 	};
 }
 
 function renderIfBlock_1 ( root, component ) {
-	var div = document.createElement( 'div' );
-	div.setAttribute( 'svelte-847749836', '' );
+	var div = createElement( 'div' );
+	setAttribute( div, 'svelte-2360266922', '' );
 	div.className = "pure-button pure-button-disabled";
 	
-	div.appendChild( document.createTextNode( "Download Full CSV" ) );
+	appendNode( createText( "Download Full CSV" ), div );
 
 	return {
 		mount: function ( target, anchor ) {
-			target.insertBefore( div, anchor );
+			insertNode( div, target, anchor );
 		},
-
-		update: function ( changed, root ) {
-			
-		},
-
+		
+		update: noop,
+		
 		teardown: function ( detach ) {
 			if ( detach ) {
-				div.parentNode.removeChild( div );
+				detachNode( div );
 			}
-		}
+		},
 	};
 }
 
 function renderIfBlock_0 ( root, component ) {
-	var a = document.createElement( 'a' );
-	a.setAttribute( 'svelte-847749836', '' );
+	var a = createElement( 'a' );
+	setAttribute( a, 'svelte-2360266922', '' );
 	a.href = "data:text/csv;charset=utf-8," + ( root.csvString );
-	a.setAttribute( 'taget', "_blank" );
+	setAttribute( a, 'taget', "_blank" );
 	a.className = "pure-button";
 	a.download = "ebird-import.csv";
 	
-	a.appendChild( document.createTextNode( "Download Full CSV (" ) );
-	
-	var text1 = document.createTextNode( root.reports.length );
-	
-	a.appendChild( text1 );
-	
-	a.appendChild( document.createTextNode( " checklist" ) );
-	
-	var text3 = document.createTextNode( root.reports.length === 1 ? '' : 's' );
-	
-	a.appendChild( text3 );
-	
-	a.appendChild( document.createTextNode( ")" ) );
+	appendNode( createText( "Download Full CSV (" ), a );
+	var text1 = createText( root.reports.length );
+	appendNode( text1, a );
+	appendNode( createText( " checklist" ), a );
+	var text3 = createText( root.reports.length === 1 ? '' : 's' );
+	appendNode( text3, a );
+	appendNode( createText( ")" ), a );
 
 	return {
 		mount: function ( target, anchor ) {
-			target.insertBefore( a, anchor );
+			insertNode( a, target, anchor );
 		},
-
+		
 		update: function ( changed, root ) {
 			a.href = "data:text/csv;charset=utf-8," + ( root.csvString );
 			
@@ -563,127 +493,160 @@ function renderIfBlock_0 ( root, component ) {
 			
 			text3.data = root.reports.length === 1 ? '' : 's';
 		},
-
+		
 		teardown: function ( detach ) {
 			if ( detach ) {
-				a.parentNode.removeChild( a );
+				detachNode( a );
 			}
-		}
+		},
 	};
 }
 
 function Main ( options ) {
 	options = options || {};
+	
+	this._state = Object.assign( template.data(), options.data );
 
-	var component = this;
-	var state = Object.assign( template.data(), options.data );
-
-	var observers = {
-		immediate: Object.create( null ),
-		deferred: Object.create( null )
+	this._observers = {
+		pre: Object.create( null ),
+		post: Object.create( null )
 	};
 
-	var callbacks = Object.create( null );
+	this._handlers = Object.create( null );
 
-	function dispatchObservers ( group, newState, oldState ) {
-		for ( var key in group ) {
-			if ( !( key in newState ) ) continue;
-
-			var newValue = newState[ key ];
-			var oldValue = oldState[ key ];
-
-			if ( newValue === oldValue && typeof newValue !== 'object' ) continue;
-
-			var callbacks = group[ key ];
-			if ( !callbacks ) continue;
-
-			for ( var i = 0; i < callbacks.length; i += 1 ) {
-				var callback = callbacks[i];
-				if ( callback.__calling ) continue;
-
-				callback.__calling = true;
-				callback.call( component, newValue, oldValue );
-				callback.__calling = false;
-			}
-		}
-	}
-
-	this.fire = function fire ( eventName, data ) {
-		var handlers = eventName in callbacks && callbacks[ eventName ].slice();
-		if ( !handlers ) return;
-
-		for ( var i = 0; i < handlers.length; i += 1 ) {
-			handlers[i].call( this, data );
-		}
-	};
-
-	this.get = function get ( key ) {
-		return key ? state[ key ] : state;
-	};
-
-	this.set = function set ( newState ) {
-		var oldState = state;
-		state = Object.assign( {}, oldState, newState );
-		
-		dispatchObservers( observers.immediate, newState, oldState );
-		if ( mainFragment ) mainFragment.update( newState, state );
-		dispatchObservers( observers.deferred, newState, oldState );
-	};
-
-	this._mount = function mount ( target, anchor ) {
-		mainFragment.mount( target, anchor );
-	}
-
-	this.observe = function ( key, callback, options ) {
-		var group = ( options && options.defer ) ? observers.deferred : observers.immediate;
-
-		( group[ key ] || ( group[ key ] = [] ) ).push( callback );
-
-		if ( !options || options.init !== false ) {
-			callback.__calling = true;
-			callback.call( component, state[ key ] );
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function () {
-				var index = group[ key ].indexOf( callback );
-				if ( ~index ) group[ key ].splice( index, 1 );
-			}
-		};
-	};
-
-	this.on = function on ( eventName, handler ) {
-		var handlers = callbacks[ eventName ] || ( callbacks[ eventName ] = [] );
-		handlers.push( handler );
-
-		return {
-			cancel: function () {
-				var index = handlers.indexOf( handler );
-				if ( ~index ) handlers.splice( index, 1 );
-			}
-		};
-	};
-
-	this.teardown = function teardown ( detach ) {
-		this.fire( 'teardown' );
-
-		mainFragment.teardown( detach !== false );
-		mainFragment = null;
-
-		state = {};
-	};
-
-	this.root = options.root;
-	this.yield = options.yield;
+	this._root = options._root;
+	this._yield = options._yield;
 
 	if ( !addedCss ) addCss();
 	
-	var mainFragment = renderMainFragment( state, this );
-	if ( options.target ) this._mount( options.target );
+	this._fragment = renderMainFragment( this._state, this );
+	if ( options.target ) this._fragment.mount( options.target, null );
 }
 
 Main.prototype = template.methods;
+
+Main.prototype.get = function get( key ) {
+ 	return key ? this._state[ key ] : this._state;
+ };
+
+Main.prototype.fire = function fire( eventName, data ) {
+ 	var handlers = eventName in this._handlers && this._handlers[ eventName ].slice();
+ 	if ( !handlers ) return;
+ 
+ 	for ( var i = 0; i < handlers.length; i += 1 ) {
+ 		handlers[i].call( this, data );
+ 	}
+ };
+
+Main.prototype.observe = function observe( key, callback, options ) {
+ 	var group = ( options && options.defer ) ? this._observers.pre : this._observers.post;
+ 
+ 	( group[ key ] || ( group[ key ] = [] ) ).push( callback );
+ 
+ 	if ( !options || options.init !== false ) {
+ 		callback.__calling = true;
+ 		callback.call( this, this._state[ key ] );
+ 		callback.__calling = false;
+ 	}
+ 
+ 	return {
+ 		cancel: function () {
+ 			var index = group[ key ].indexOf( callback );
+ 			if ( ~index ) group[ key ].splice( index, 1 );
+ 		}
+ 	};
+ };
+
+Main.prototype.on = function on( eventName, handler ) {
+ 	var handlers = this._handlers[ eventName ] || ( this._handlers[ eventName ] = [] );
+ 	handlers.push( handler );
+ 
+ 	return {
+ 		cancel: function () {
+ 			var index = handlers.indexOf( handler );
+ 			if ( ~index ) handlers.splice( index, 1 );
+ 		}
+ 	};
+ };
+
+Main.prototype.set = function set ( newState ) {
+	var oldState = this._state;
+	this._state = Object.assign( {}, oldState, newState );
+	
+	dispatchObservers( this, this._observers.pre, newState, oldState );
+	if ( this._fragment ) this._fragment.update( newState, this._state );
+	dispatchObservers( this, this._observers.post, newState, oldState );
+};
+
+Main.prototype.teardown = function teardown ( detach ) {
+	this.fire( 'teardown' );
+
+	this._fragment.teardown( detach !== false );
+	this._fragment = null;
+
+	this._state = {};
+};
+
+function dispatchObservers( component, group, newState, oldState ) {
+	for ( var key in group ) {
+		if ( !( key in newState ) ) continue;
+
+		var newValue = newState[ key ];
+		var oldValue = oldState[ key ];
+
+		if ( newValue === oldValue && typeof newValue !== 'object' ) continue;
+
+		var callbacks = group[ key ];
+		if ( !callbacks ) continue;
+
+		for ( var i = 0; i < callbacks.length; i += 1 ) {
+			var callback = callbacks[i];
+			if ( callback.__calling ) continue;
+
+			callback.__calling = true;
+			callback.call( component, newValue, oldValue );
+			callback.__calling = false;
+		}
+	}
+}
+
+function createElement( name ) {
+	return document.createElement( name );
+}
+
+function setAttribute( node, attribute, value ) {
+	node.setAttribute ( attribute, value );
+}
+
+function detachNode( node ) {
+	node.parentNode.removeChild( node );
+}
+
+function insertNode( node, target, anchor ) {
+	target.insertBefore( node, anchor );
+}
+
+function appendNode( node, target ) {
+	target.appendChild( node );
+}
+
+function createText( data ) {
+	return document.createTextNode( data );
+}
+
+function addEventListener( node, event, handler ) {
+	node.addEventListener ( event, handler, false );
+}
+
+function removeEventListener( node, event, handler ) {
+	node.removeEventListener ( event, handler, false );
+}
+
+function noop() {}
+
+function createComment( data ) {
+	return document.createComment( data );
+}
 
 return Main;
 

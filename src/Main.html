@@ -5,7 +5,6 @@
     bind:value="avitext"
     placeholder="Paste your Avitext checklist here"
     rows="25"
-    onfocus="this.select();"
     onmouseup="return false;"
     class="pure-u-5-5 pure-input-rounded avitext">
 </textarea>
@@ -103,11 +102,13 @@
                 const avitext = this.get('avitext');
                 const reports = this.get('reports');
                 reports.push(new Parse(avitext));
+                console.log('new parse', new Parse(avitext));
 
                 this.set({
                     reports,
                     csvString: encodeURI(generateCsvString(reports))
                 });
+                this.set({avitext: ''});
             },
             remove (index) {
                 const reports = this.get('reports');
