@@ -1,5 +1,5 @@
 # avitext-to-ebird
-####v1.3.0
+####v1.3.1
 
 A web app for validating [Avitext](https://github.com/rgeraldporter/avitext-spec) files and converting them into .csv files for eBird import.
 

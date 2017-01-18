@@ -111,7 +111,13 @@ svelte-cli@1.3.0:
   dependencies:
     svelte "^1.3.0"
 
-svelte@1.6.2, svelte@^1.3.0:
+svelte@1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.6.5.tgz#b7a9dcd29a654da498f6c8e439898b073ea0a983"
+  dependencies:
+    magic-string "^0.19.0"
+
+svelte@^1.3.0:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.6.2.tgz#b4c4e4d2034355c3c9801ec52c689c4801ca58bd"
   dependencies:

@@ -202,9 +202,7 @@ function renderMainFragment ( root, component ) {
 				}
 			}
 			
-			for ( var i = eachBlock_value.length; i < eachBlock_iterations.length; i += 1 ) {
-				eachBlock_iterations[i].teardown( true );
-			}
+			teardownEach( eachBlock_iterations, true, eachBlock_value.length );
 			
 			eachBlock_iterations.length = eachBlock_value.length;
 		},
@@ -215,9 +213,7 @@ function renderMainFragment ( root, component ) {
 			removeEventListener( button1, 'click', clickHandler1 );
 			if ( ifBlock ) ifBlock.teardown( detach );
 			
-			for ( var i = 0; i < eachBlock_iterations.length; i += 1 ) {
-				eachBlock_iterations[i].teardown( detach );
-			}
+			teardownEach( eachBlock_iterations, detach );
 			
 			if ( detach ) {
 				detachNode( h1 );
@@ -234,7 +230,7 @@ function renderMainFragment ( root, component ) {
 				detachNode( text11 );
 				detachNode( eachBlock_anchor );
 			}
-		},
+		}
 	};
 }
 
@@ -339,8 +335,6 @@ function renderEachBlock ( root, eachBlock_value, report, index, component ) {
 		},
 		
 		update: function ( changed, root, eachBlock_value, report, index ) {
-			var report = eachBlock_value[index];
-			
 			text2.data = report.checklist.date.emit();
 			
 			text4.data = report.checklist.location.emit();
@@ -359,9 +353,7 @@ function renderEachBlock ( root, eachBlock_value, report, index, component ) {
 				}
 			}
 			
-			for ( var i = eachBlock1_value.length; i < eachBlock1_iterations.length; i += 1 ) {
-				eachBlock1_iterations[i].teardown( true );
-			}
+			teardownEach( eachBlock1_iterations, true, eachBlock1_value.length );
 			
 			eachBlock1_iterations.length = eachBlock1_value.length;
 		},
@@ -369,16 +361,14 @@ function renderEachBlock ( root, eachBlock_value, report, index, component ) {
 		teardown: function ( detach ) {
 			removeEventListener( a, 'click', clickHandler );
 			
-			for ( var i = 0; i < eachBlock1_iterations.length; i += 1 ) {
-				eachBlock1_iterations[i].teardown( false );
-			}
+			teardownEach( eachBlock1_iterations, false );
 			
 			if ( detach ) {
 				detachNode( hr );
 				detachNode( text );
 				detachNode( table );
 			}
-		},
+		}
 	};
 }
 
@@ -423,9 +413,6 @@ function renderEachBlock1 ( root, eachBlock_value, report, index, eachBlock1_val
 		},
 		
 		update: function ( changed, root, eachBlock_value, report, index, eachBlock1_value, taxon, taxon__index ) {
-			var report = eachBlock_value[index];
-			var taxon = eachBlock1_value[taxon__index];
-			
 			text.data = taxon.identifier.emit();
 			
 			text2.data = taxon.commonName.emit();
@@ -439,7 +426,7 @@ function renderEachBlock1 ( root, eachBlock_value, report, index, eachBlock1_val
 			if ( detach ) {
 				detachNode( tr );
 			}
-		},
+		}
 	};
 }
 
@@ -461,7 +448,7 @@ function renderIfBlock_1 ( root, component ) {
 			if ( detach ) {
 				detachNode( div );
 			}
-		},
+		}
 	};
 }
 
@@ -498,7 +485,7 @@ function renderIfBlock_0 ( root, component ) {
 			if ( detach ) {
 				detachNode( a );
 			}
-		},
+		}
 	};
 }
 
@@ -646,6 +633,12 @@ function noop() {}
 
 function createComment( data ) {
 	return document.createComment( data );
+}
+
+function teardownEach( iterations, detach, start ) {
+	for ( var i = ( start || 0 ); i < iterations.length; i += 1 ) {
+		iterations[i].teardown( detach );
+	}
 }
 
 return Main;
