@@ -1,5 +1,5 @@
 # avitext-to-ebird
-####v1.3.1
+### v1.3.2
 
 A web app for validating [Avitext](https://github.com/rgeraldporter/avitext-spec) files and converting them into .csv files for eBird import.
 
@@ -11,7 +11,7 @@ Clone down, run `npm start`. Or, run with [`now`](https://zeit.co/now).
 
 Written with [Svelte](https://svelte.technology/) UI Framework. CSS from [Pure CSS](http://purecss.io/). Deployment with [Δnow](https://zeit.co/now).
 
-##License
+## License
 
 The MIT License (MIT)
 

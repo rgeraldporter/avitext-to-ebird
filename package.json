@@ -1,6 +1,6 @@
 {
   "name": "avitext-to-ebird",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Convert your Avitext files in .csv files for eBird import.",
   "main": "index.js",
   "author": "Rob Porter <rob@inpictures.ca>",
